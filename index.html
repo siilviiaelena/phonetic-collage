@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Interactive Phonetic Collage</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f6f8;
+        color: #263238;
+    }
+
+    header {
+        background: #243447;
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    header h1 {
+        margin: 0 0 10px;
+        font-size: 38px;
+    }
+
+    header p {
+        margin: 0;
+        font-size: 17px;
+        opacity: 0.9;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 35px auto;
+        padding: 0 20px;
+    }
+
+    .categories {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .category {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border-top: 6px solid #607d8b;
+    }
+
+    .category h2 {
+        margin-top: 0;
+        color: #263238;
+        font-size: 25px;
+    }
+
+    .category-description {
+        font-size: 14px;
+        color: #607d8b;
+        margin-bottom: 20px;
+    }
+
+    .cards {
+        display: grid;
+        gap: 15px;
+    }
+
+    .card {
+        border: 1px solid #dfe5e8;
+        border-radius: 12px;
+        padding: 17px;
+        background: #fafbfc;
+    }
+
+    .word {
+        font-size: 23px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .ipa {
+        font-family: "Times New Roman", serif;
+        font-size: 20px;
+        color: #455a64;
+        margin-bottom: 8px;
+    }
+
+    .explanation {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 12px;
+    }
+
+    .visual {
+        font-size: 35px;
+        margin-bottom: 8px;
+    }
+
+    button {
+        background: #455a64;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 9px 14px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    button:hover {
+        background: #263238;
+    }
+
+    .info-section {
+        margin-top: 30px;
+        background: white;
+        border-radius: 15px;
+        padding: 28px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .info-section h2 {
+        margin-top: 0;
+        color: #263238;
+    }
+
+    .difficulty {
+        margin-bottom: 18px;
+        padding: 15px;
+        border-left: 4px solid #78909c;
+        background: #f5f7f8;
+    }
+
+    .difficulty strong {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .resources a {
+        display: inline-block;
+        margin: 8px 10px 8px 0;
+        padding: 10px 15px;
+        background: #eceff1;
+        color: #263238;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .resources a:hover {
+        background: #cfd8dc;
+    }
+
+    #status {
+        text-align: center;
+        font-size: 14px;
+        color: #546e7a;
+        min-height: 20px;
+        margin-top: 15px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        margin-top: 40px;
+        background: #263238;
+        color: white;
+        font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+        .categories {
+            grid-template-columns: 1fr;
+        }
+
+        header h1 {
+            font-size: 30px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Phonetic Collage</h1>
+    <p>English Sounds in Context</p>
+</header>
+
+<div class="container">
+
+    <div class="categories">
+
+        <!-- CATEGORY 1 -->
+        <section class="category">
+            <h2>1. Consonant Phonemes</h2>
+
+            <p class="category-description">
+                Individual consonant sounds that can be difficult for Spanish speakers.
+            </p>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="visual">🗣️</div>
+                    <div class="word">think</div>
+                    <div class="ipa">/θɪŋk/</div>
+                    <div class="explanation">
+                        /θ/ is an unvoiced dental fricative. The tongue is gently placed between the teeth.
+                    </div>
+                    <button data-say="think">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">👉</div>
+                    <div class="word">this</div>
+                    <div class="ipa">/ðɪs/</div>
+                    <div class="explanation">
+                        /ð/ is a voiced dental fricative. The tongue is between the teeth and the vocal cords vibrate.
+                    </div>
+                    <button data-say="this">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🚢</div>
+                    <div class="word">ship</div>
+                    <div class="ipa">/ʃɪp/</div>
+                    <div class="explanation">
+                        /ʃ/ is the sound heard in the beginning of “ship”.
+                    </div>
+                    <button data-say="ship">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🪑</div>
+                    <div class="word">chair</div>
+                    <div class="ipa">/tʃeər/</div>
+                    <div class="explanation">
+                        /tʃ/ is an affricate sound made with a short stop followed by friction.
+                    </div>
+                    <button data-say="chair">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🧃</div>
+                    <div class="word">juice</div>
+                    <div class="ipa">/dʒuːs/</div>
+                    <div class="explanation">
+                        /dʒ/ is a voiced affricate sound.
+                    </div>
+                    <button data-say="juice">🔊 Listen</button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CATEGORY 2 -->
+        <section class="category">
+            <h2>2. Consonant Clusters</h2>
+
+            <p class="category-description">
+                Two or more consonants pronounced together without adding an extra vowel.
+            </p>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="visual">🛣️</div>
+                    <div class="word">street</div>
+                    <div class="ipa">/striːt/</div>
+                    <div class="explanation">
+                        The cluster /str/ contains three consonants pronounced together.
+                    </div>
+                    <button data-say="street">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🎮</div>
+                    <div class="word">play</div>
+                    <div class="ipa">/pleɪ/</div>
+                    <div class="explanation">
+                        The cluster /pl/ begins the word and combines two consonant sounds.
+                    </div>
+                    <button data-say="play">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">3️⃣</div>
+                    <div class="word">three</div>
+                    <div class="ipa">/θriː/</div>
+                    <div class="explanation">
+                        The cluster /θr/ combines the /θ/ sound with /r/.
+                    </div>
+                    <button data-say="three">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">⬛</div>
+                    <div class="word">black</div>
+                    <div class="ipa">/blæk/</div>
+                    <div class="explanation">
+                        The word begins with the consonant cluster /bl/.
+                    </div>
+                    <button data-say="black">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🏫</div>
+                    <div class="word">school</div>
+                    <div class="ipa">/skuːl/</div>
+                    <div class="explanation">
+                        The word starts with the consonant cluster /sk/.
+                    </div>
+                    <button data-say="school">🔊 Listen</button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CATEGORY 3 -->
+        <section class="category">
+            <h2>3. -ED Endings</h2>
+
+            <p class="category-description">
+                The ending -ed has three common pronunciations: /t/, /d/, and /ɪd/.
+            </p>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="visual">▶️</div>
+                    <div class="word">played</div>
+                    <div class="ipa">/pleɪd/</div>
+                    <div class="explanation">
+                        The -ed ending is pronounced /d/ because the final sound of “play” is voiced.
+                    </div>
+                    <button data-say="played">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🧼</div>
+                    <div class="word">washed</div>
+                    <div class="ipa">/wɒʃt/</div>
+                    <div class="explanation">
+                        The -ed ending is pronounced /t/ after a voiceless sound.
+                    </div>
+                    <button data-say="washed">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">⏰</div>
+                    <div class="word">wanted</div>
+                    <div class="ipa">/ˈwɒntɪd/</div>
+                    <div class="explanation">
+                        The -ed ending is pronounced /ɪd/ after the sounds /t/ or /d/.
+                    </div>
+                    <button data-say="wanted">🔊 Listen</button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- CATEGORY 4 -->
+        <section class="category">
+            <h2>4. -S Endings</h2>
+
+            <p class="category-description">
+                The final -s can be pronounced /s/, /z/, or /ɪz/.
+            </p>
+
+            <div class="cards">
+
+                <div class="card">
+                    <div class="visual">🐱🐱</div>
+                    <div class="word">cats</div>
+                    <div class="ipa">/kæts/</div>
+                    <div class="explanation">
+                        The final -s is pronounced /s/ after a voiceless consonant.
+                    </div>
+                    <button data-say="cats">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🐶🐶</div>
+                    <div class="word">dogs</div>
+                    <div class="ipa">/dɒɡz/</div>
+                    <div class="explanation">
+                        The final -s is pronounced /z/ after a voiced sound.
+                    </div>
+                    <button data-say="dogs">🔊 Listen</button>
+                </div>
+
+                <div class="card">
+                    <div class="visual">🚌🚌</div>
+                    <div class="word">buses</div>
+                    <div class="ipa">/ˈbʌsɪz/</div>
+                    <div class="explanation">
+                        The final -es is pronounced /ɪz/ after sounds such as /s/, /z/, /ʃ/, and /tʃ/.
+                    </div>
+                    <button data-say="buses">🔊 Listen</button>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+
+    <!-- DIFFICULTIES -->
+    <section class="info-section">
+
+        <h2>Common Difficulties for Spanish Speakers</h2>
+
+        <div class="difficulty">
+            <strong>1. /θ/ and /ð/</strong>
+            Spanish speakers may replace these sounds with /t/, /d/, or /s/.
+            A possible solution is to place the tongue gently between the teeth and practice slowly.
+        </div>
+
+        <div class="difficulty">
+            <strong>2. Consonant Clusters</strong>
+            Learners may add an extra vowel between consonants.
+            For example, they may pronounce “street” with an additional vowel.
+            Practice the consonants together without inserting another sound.
+        </div>
+
+        <div class="difficulty">
+            <strong>3. -ED and -S Endings</strong>
+            The spelling does not always correspond to one pronunciation.
+            Practice the three main pronunciation patterns and listen to examples.
+        </div>
+
+    </section>
+
+
+    <!-- RESOURCES -->
+    <section class="info-section resources">
+
+        <h2>Interactive Resources</h2>
+
+        <p>
+            Use these resources to practice English pronunciation and phonetics:
+        </p>
+
+        <a href="https://dictionary.cambridge.org/"
+           target="_blank">
+           Cambridge Dictionary
+        </a>
+
+        <a href="https://www.youtube.com/results?search_query=English+consonant+sounds+phonetics"
+           target="_blank">
+           Pronunciation Video
+        </a>
+
+        <a href="https://learningenglish.voanews.com/"
+           target="_blank">
+           VOA Learning English
+        </a>
+
+    </section>
+
+    <div id="status"></div>
+
+</div>
+
+
+<footer>
+    Academic Interactive Resource · English Phonetics
+</footer>
+
+
+<script>
+
+const buttons = document.querySelectorAll("[data-say]");
+const status = document.getElementById("status");
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const word = button.getAttribute("data-say");
+
+        if (!("speechSynthesis" in window)) {
+            status.textContent =
+                "Audio is not supported in this browser.";
+            return;
+        }
+
+        speechSynthesis.cancel();
+
+        const utterance =
+            new SpeechSynthesisUtterance(word);
+
+        utterance.lang = "en-US";
+        utterance.rate = 0.82;
+
+        utterance.onstart = () => {
+            status.textContent = "🔊 Playing: " + word;
+        };
+
+        utterance.onend = () => {
+            status.textContent = "";
+        };
+
+        speechSynthesis.speak(utterance);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
